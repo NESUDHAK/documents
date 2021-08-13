@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="470272f5-5bf5-461f-9383-e6b64e625247" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="employee-apiFlow" doc:id="f33cfb93-9120-4f3f-bc78-27ba84054128">
+		<http:listener doc:name="Listener" doc:id="8dd7c63b-1be3-4acd-8033-9505ce5a432f" config-ref="HTTP_Listener_config" path="/employee" />
+		<logger level="INFO" doc:name="Logger" doc:id="660661cd-a5c4-4780-b0e0-29919d77c7c4" message="This message has been logged" />
+		<set-payload value="Request has been received" doc:name="Set Payload" doc:id="e7abc733-936c-477d-8a5a-4022baa807f5" />
+	</flow>
+	<flow name="employee-apiFlow1" doc:id="0e0214a6-7e16-485d-a6a0-737183947d90" >
+		<scheduler doc:name="Scheduler" doc:id="1bc67b83-2da3-4332-9b57-f587e0d3e04c" >
+			<scheduling-strategy >
+				<fixed-frequency frequency="2"/>
+			</scheduling-strategy>
+		</scheduler>
+		<logger level="INFO" doc:name="Copy_of_Logger" doc:id="80af0709-9dc7-4ea1-9694-5192a4cac66d" message="This message has been logged" />
+		<set-payload value="Request has been received" doc:name="Copy_of_Set Payload" doc:id="44900ba5-9b8e-4b55-a5bb-5539c772a1e8" />
+	</flow>
+</mule>
